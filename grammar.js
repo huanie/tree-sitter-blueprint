@@ -1,6 +1,6 @@
 module.exports = grammar({
+  extras: $ => [/\s|\\\r?\n/, $.comment],
   name: 'blueprint',
-  extras: $ => [/\s/, $.comment],
   conflicts: $ => [[$.ext_response]],
   rules: {
     source_file: $ =>
@@ -23,9 +23,12 @@ module.exports = grammar({
         seq("'", repeat(choice($.string, $.escape_sequence)), "'"),
       ),
     escape_sequence: $ => token.immediate(seq('\\', /(\"|\\|\/|b|f|n|r|t|u)/)),
-    comment: $ =>
+    comment: _ =>
       token(
-        choice(seq('//', /.*/), seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/')),
+        choice(
+          seq('//', /(\\+(.|\r?\n)|[^\\\n])*/),
+          seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/'),
+        ),
       ),
     object: $ =>
       seq($.type_name, optional(alias($.ident, 'id')), $.object_content),

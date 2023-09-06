@@ -205,7 +205,7 @@
               },
               {
                 "type": "PATTERN",
-                "value": ".*"
+                "value": "(\\\\+(.|\\r?\\n)|[^\\\\\\n])*"
               }
             ]
           },
@@ -2189,7 +2189,7 @@
   "extras": [
     {
       "type": "PATTERN",
-      "value": "\\s"
+      "value": "\\s|\\\\\\r?\\n"
     },
     {
       "type": "SYMBOL",
