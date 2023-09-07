@@ -6,11 +6,14 @@ module.exports = grammar({
     // begin Root
     source_file: $ =>
       seq(repeat1($.using), repeat(choice($.template, $.menu, $.object))),
-    using: $ => seq('using', $.namespace, $.version, ';'),
+    using: $ =>
+      seq(
+        'using',
+        alias($.ident, 'namespace'),
+        alias($.number, 'version'),
+        ';',
+      ),
     // end Root
-    namespace: $ => $.ident,
-    ident: $ => token(/[_A-Za-z][A-Za-z\-_0-9]*/),
-    version: $ => $.number,
     // begin Objects
     object: $ =>
       seq($.type_name, optional(alias($.ident, 'id')), $.object_content),
@@ -18,7 +21,7 @@ module.exports = grammar({
       seq('{', repeat(choice($.signal, $.property, $.extension, $.child)), '}'),
     type_name: $ =>
       choice($.type_name_full, $.type_name_external, $.type_name_short),
-    type_name_full: $ => seq($.namespace, '.', $.name),
+    type_name_full: $ => seq(alias($.ident, 'namespace'), '.', $.name),
     name: $ => $.ident,
     type_name_external: $ => seq('$', $.name),
     type_name_short: $ => $.name,
@@ -271,7 +274,7 @@ module.exports = grammar({
         'action',
         'response',
         '=',
-        optional(choice(alias($.ident, 'name'), alias($.ident, 'id'))),
+        optional(choice(alias($.ident, 'name'), alias($.number, 'id'))),
         optional('default'),
       ),
     // end Extensions
@@ -291,6 +294,7 @@ module.exports = grammar({
           seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/'),
         ),
       ),
+    ident: $ => token(/[_A-Za-z][A-Za-z\-_0-9]*/),
     // end Tokens
   },
 });

@@ -41,33 +41,28 @@
           "value": "using"
         },
         {
-          "type": "SYMBOL",
-          "name": "namespace"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ident"
+          },
+          "named": false,
+          "value": "namespace"
         },
         {
-          "type": "SYMBOL",
-          "name": "version"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "number"
+          },
+          "named": false,
+          "value": "version"
         },
         {
           "type": "STRING",
           "value": ";"
         }
       ]
-    },
-    "namespace": {
-      "type": "SYMBOL",
-      "name": "ident"
-    },
-    "ident": {
-      "type": "TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[_A-Za-z][A-Za-z\\-_0-9]*"
-      }
-    },
-    "version": {
-      "type": "SYMBOL",
-      "name": "number"
     },
     "object": {
       "type": "SEQ",
@@ -157,8 +152,13 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "namespace"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "ident"
+          },
+          "named": false,
+          "value": "namespace"
         },
         {
           "type": "STRING",
@@ -1987,7 +1987,7 @@
                   "type": "ALIAS",
                   "content": {
                     "type": "SYMBOL",
-                    "name": "ident"
+                    "name": "number"
                   },
                   "named": false,
                   "value": "id"
@@ -2158,6 +2158,13 @@
             ]
           }
         ]
+      }
+    },
+    "ident": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "[_A-Za-z][A-Za-z\\-_0-9]*"
       }
     }
   },

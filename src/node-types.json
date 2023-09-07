@@ -583,6 +583,11 @@
     "fields": {}
   },
   {
+    "type": "id",
+    "named": false,
+    "fields": {}
+  },
+  {
     "type": "ident_literal",
     "named": true,
     "fields": {}
@@ -766,26 +771,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "namespace",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "number",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "number_literal",
@@ -1075,15 +1060,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "name",
-          "named": true
-        },
-        {
-          "type": "namespace",
           "named": true
         }
       ]
@@ -1107,21 +1088,7 @@
   {
     "type": "using",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "namespace",
-          "named": true
-        },
-        {
-          "type": "version",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "value",
@@ -1156,18 +1123,8 @@
   },
   {
     "type": "version",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "number",
-          "named": true
-        }
-      ]
-    }
+    "named": false,
+    "fields": {}
   },
   {
     "type": "\"",
@@ -1311,11 +1268,11 @@
   },
   {
     "type": "ident",
-    "named": true
+    "named": false
   },
   {
     "type": "ident",
-    "named": false
+    "named": true
   },
   {
     "type": "internal-child",
@@ -1355,6 +1312,10 @@
   },
   {
     "type": "name",
+    "named": false
+  },
+  {
+    "type": "namespace",
     "named": false
   },
   {
