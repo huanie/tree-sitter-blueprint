@@ -771,21 +771,7 @@
   {
     "type": "number",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "base10",
-          "named": true
-        },
-        {
-          "type": "base16",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "number_literal",
@@ -1136,14 +1122,6 @@
       "required": false,
       "types": [
         {
-          "type": "base10",
-          "named": true
-        },
-        {
-          "type": "base16",
-          "named": true
-        },
-        {
           "type": "escape_sequence",
           "named": true
         },
@@ -1286,14 +1264,6 @@
     "named": false
   },
   {
-    "type": "base10",
-    "named": true
-  },
-  {
-    "type": "base16",
-    "named": true
-  },
-  {
     "type": "bind",
     "named": false
   },
@@ -1343,11 +1313,11 @@
   },
   {
     "type": "ident",
-    "named": false
+    "named": true
   },
   {
     "type": "ident",
-    "named": true
+    "named": false
   },
   {
     "type": "internal-child",

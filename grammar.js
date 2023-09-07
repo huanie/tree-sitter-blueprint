@@ -12,11 +12,9 @@ module.exports = grammar({
     gtk_decl: $ => seq('using', 'Gtk', '4.0', ';'),
     using: $ => seq('using', $.namespace, $.version, ';'),
     namespace: $ => $.ident,
-    ident: $ => /[_A-Za-z][A-Za-z\-_0-9]*/,
+      ident: $ => token(/[_A-Za-z][A-Za-z\-_0-9]*/),
     version: $ => $.number,
-    number: $ => choice($.base10, $.base16),
-    base10: $ => /[0-9]+(\.[0-9]+)?/,
-    base16: $ => /0x[A-F0-9]+/,
+      number: $ => choice(token(/[0-9]+(\.[0-9]+)?/), token(/0x[A-F0-9]+/)),
     quoted: $ =>
       choice(
         seq('"', repeat(choice($.string, $.escape_sequence)), '"'),
