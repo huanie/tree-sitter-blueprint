@@ -5,11 +5,9 @@ module.exports = grammar({
   rules: {
     source_file: $ =>
       seq(
-        $.gtk_decl,
         repeat($.using),
         repeat(choice($.template, $.menu, $.object)),
       ),
-    gtk_decl: $ => seq('using', 'Gtk', '4.0', ';'),
     using: $ => seq('using', $.namespace, $.version, ';'),
     namespace: $ => $.ident,
       ident: $ => token(/[_A-Za-z][A-Za-z\-_0-9]*/),
