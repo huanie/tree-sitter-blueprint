@@ -54,7 +54,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "child_extension",
@@ -62,6 +62,10 @@
         },
         {
           "type": "child_internal",
+          "named": true
+        },
+        {
+          "type": "child_type",
           "named": true
         }
       ]
@@ -86,6 +90,21 @@
     "type": "child_internal",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "child_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "closure_expression",
@@ -564,11 +583,6 @@
     "fields": {}
   },
   {
-    "type": "gtk_decl",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "ident_literal",
     "named": true,
     "fields": {}
@@ -732,7 +746,7 @@
   },
   {
     "type": "name",
-    "named": false,
+    "named": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -923,10 +937,6 @@
       "required": true,
       "types": [
         {
-          "type": "gtk_decl",
-          "named": true
-        },
-        {
           "type": "menu",
           "named": true
         },
@@ -1115,7 +1125,7 @@
   },
   {
     "type": "value",
-    "named": false,
+    "named": true,
     "fields": {},
     "children": {
       "multiple": true,
@@ -1196,10 +1206,6 @@
     "named": false
   },
   {
-    "type": "4.0",
-    "named": false
-  },
-  {
     "type": ":",
     "named": false
   },
@@ -1232,10 +1238,6 @@
     "named": false
   },
   {
-    "type": "Gtk",
-    "named": false
-  },
-  {
     "type": "[",
     "named": false
   },
@@ -1265,10 +1267,6 @@
   },
   {
     "type": "bind",
-    "named": false
-  },
-  {
-    "type": "child_type",
     "named": false
   },
   {

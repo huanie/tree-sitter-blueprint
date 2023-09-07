@@ -3,29 +3,15 @@ module.exports = grammar({
   name: 'blueprint',
   conflicts: $ => [[$.ext_response]],
   rules: {
+    // begin Root
     source_file: $ =>
-      seq(
-        repeat($.using),
-        repeat(choice($.template, $.menu, $.object)),
-      ),
+      seq(repeat1($.using), repeat(choice($.template, $.menu, $.object))),
     using: $ => seq('using', $.namespace, $.version, ';'),
+    // end Root
     namespace: $ => $.ident,
-      ident: $ => token(/[_A-Za-z][A-Za-z\-_0-9]*/),
+    ident: $ => token(/[_A-Za-z][A-Za-z\-_0-9]*/),
     version: $ => $.number,
-      number: $ => choice(token(/[0-9]+(\.[0-9]+)?/), token(/0x[A-F0-9]+/)),
-    quoted: $ =>
-      choice(
-        seq('"', repeat(choice($.string, $.escape_sequence)), '"'),
-        seq("'", repeat(choice($.string, $.escape_sequence)), "'"),
-      ),
-    escape_sequence: $ => token.immediate(seq('\\', /(\"|\\|\/|b|f|n|r|t|u)/)),
-    comment: _ =>
-      token(
-        choice(
-          seq('//', /(\\+(.|\r?\n)|[^\\\n])*/),
-          seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/'),
-        ),
-      ),
+    // begin Objects
     object: $ =>
       seq($.type_name, optional(alias($.ident, 'id')), $.object_content),
     object_content: $ =>
@@ -54,17 +40,12 @@ module.exports = grammar({
     signal_flag: $ => choice('after', 'swapped'),
     child: $ => seq(optional($.child_annotation), $.object),
     child_annotation: $ =>
-      seq(
-        '[',
-        choice(
-          $.child_internal,
-          $.child_extension,
-          alias($.ident, 'child_type'),
-        ),
-        ']',
-      ),
+      seq('[', choice($.child_internal, $.child_extension, $.child_type), ']'),
     child_internal: $ =>
       seq('internal-child', alias($.ident, 'internal_child')),
+    child_type: $ => $.ident,
+    // end Objects
+    // begin Composite Templates
     template: $ =>
       seq(
         'template',
@@ -72,6 +53,8 @@ module.exports = grammar({
         optional(seq(':', $.type_name)),
         $.object_content,
       ),
+    // end Composite Templates
+    // begin Values
     value: $ => choice($.translated, $.flags, $.literal),
     literal: $ =>
       choice(
@@ -100,6 +83,8 @@ module.exports = grammar({
     binding: $ => seq('bind', $.expression),
     object_value: $ => $.object,
     string_value: $ => choice($.translated, $.quoted_literal),
+    // end Values
+    // begin Expressions
     expression: $ =>
       seq(
         choice($.closure_expression, $.literal, seq('(', $.expression, ')')),
@@ -115,6 +100,8 @@ module.exports = grammar({
         ')',
       ),
     cast_expression: $ => seq('as', '<', $.type_name, '>'),
+    // end Expressions
+    // begin Menus
     menu: $ =>
       seq(
         'menu',
@@ -163,6 +150,8 @@ module.exports = grammar({
         ),
         ')',
       ),
+    // end Menus
+    // begin Extensions
     extension: $ =>
       choice(
         $.ext_accessibility,
@@ -285,6 +274,23 @@ module.exports = grammar({
         optional(choice(alias($.ident, 'name'), alias($.ident, 'id'))),
         optional('default'),
       ),
+    // end Extensions
+    // begin Tokens
     string: $ => token.immediate(prec(1, /[^\\"'\n]+/)),
+    number: $ => choice(token(/[0-9]+(\.[0-9]+)?/), token(/0x[A-F0-9]+/)),
+    quoted: $ =>
+      choice(
+        seq('"', repeat(choice($.string, $.escape_sequence)), '"'),
+        seq("'", repeat(choice($.string, $.escape_sequence)), "'"),
+      ),
+    escape_sequence: $ => token.immediate(seq('\\', /(\"|\\|\/|b|f|n|r|t|u)/)),
+    comment: _ =>
+      token(
+        choice(
+          seq('//', /(\\+(.|\r?\n)|[^\\\n])*/),
+          seq('/*', /[^*]*\*+([^/*][^*]*\*+)*/, '/'),
+        ),
+      ),
+    // end Tokens
   },
 });
