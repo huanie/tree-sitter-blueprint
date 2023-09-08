@@ -20,15 +20,20 @@ module.exports = grammar({
       seq('{', repeat(choice($.signal, $.property, $.extension, $.child)), '}'),
     type_name: $ =>
       choice($.type_name_full, $.type_name_external, $.type_name_short),
-    type_name_full: $ => seq(field('namespace', $.ident), '.', $.name),
-    name: $ => $.ident,
-    type_name_external: $ => seq('$', $.name),
-    type_name_short: $ => $.name,
+    type_name_full: $ =>
+      seq(field('namespace', $.ident), '.', field('name', $.ident)),
+    type_name_external: $ => seq('$', field('name', $.ident)),
+    type_name_short: $ => field('name', $.ident),
     property: $ =>
-      seq($.name, ':', choice($.binding, $.object_value, $.value), ';'),
+      seq(
+        field('name', $.ident),
+        ':',
+        choice($.binding, $.object_value, $.value),
+        ';',
+      ),
     signal: $ =>
       seq(
-        $.name,
+        field('name', $.ident),
         optional(seq('::', field('detail', $.ident))),
         '=>',
         '$',
