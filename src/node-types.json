@@ -89,7 +89,18 @@
   {
     "type": "child_internal",
     "named": true,
-    "fields": {}
+    "fields": {
+      "internal_child": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "child_type",
@@ -109,51 +120,24 @@
   {
     "type": "closure_expression",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
       "types": [
         {
           "type": "expression",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "condition",
-    "named": false,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "escape_sequence",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "context",
-    "named": false,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "escape_sequence",
-          "named": true
-        },
-        {
-          "type": "string",
           "named": true
         }
       ]
@@ -208,7 +192,18 @@
   {
     "type": "ext_accessibility_prop",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
@@ -238,7 +233,28 @@
   {
     "type": "ext_adw_breakpoint_setter",
     "named": true,
-    "fields": {},
+    "fields": {
+      "object": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "property": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
@@ -273,7 +289,18 @@
   {
     "type": "ext_adw_message_dialog_response",
     "named": true,
-    "fields": {},
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -292,7 +319,18 @@
   {
     "type": "ext_combo_box_item",
     "named": true,
-    "fields": {},
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
@@ -397,7 +435,18 @@
   {
     "type": "ext_layout_prop",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
@@ -431,12 +480,54 @@
   {
     "type": "ext_response",
     "named": true,
-    "fields": {}
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "ext_scale_mark",
     "named": true,
-    "fields": {},
+    "fields": {
+      "position": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": false,
@@ -451,7 +542,18 @@
   {
     "type": "ext_size_group_widget",
     "named": true,
-    "fields": {}
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "ext_size_group_widgets",
@@ -516,7 +618,18 @@
   {
     "type": "ext_styles_class",
     "named": true,
-    "fields": {}
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quoted",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "extension",
@@ -580,17 +693,44 @@
   {
     "type": "flags",
     "named": true,
-    "fields": {}
-  },
-  {
-    "type": "id",
-    "named": false,
-    "fields": {}
+    "fields": {
+      "first": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "rest": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "ident_literal",
     "named": true,
-    "fields": {}
+    "fields": {
+      "ident": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "literal",
@@ -622,12 +762,34 @@
   {
     "type": "lookup_expression",
     "named": true,
-    "fields": {}
+    "fields": {
+      "property": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "menu",
     "named": true,
-    "fields": {},
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -642,7 +804,18 @@
   {
     "type": "menu_attribute",
     "named": true,
-    "fields": {},
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
@@ -714,7 +887,18 @@
   {
     "type": "menu_section",
     "named": true,
-    "fields": {},
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -733,7 +917,18 @@
   {
     "type": "menu_submenu",
     "named": true,
-    "fields": {},
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": false,
@@ -754,33 +949,52 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
         {
-          "type": "escape_sequence",
-          "named": true
-        },
-        {
           "type": "ident",
-          "named": true
-        },
-        {
-          "type": "string",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "number_literal",
+    "type": "number",
     "named": true,
     "fields": {}
   },
   {
+    "type": "number_literal",
+    "named": true,
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "object",
     "named": true,
-    "fields": {},
+    "fields": {
+      "id": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -887,12 +1101,54 @@
   {
     "type": "quoted_literal",
     "named": true,
-    "fields": {}
+    "fields": {
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quoted",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "signal",
     "named": true,
-    "fields": {},
+    "fields": {
+      "detail": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "handler": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "object": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,
@@ -941,25 +1197,6 @@
     }
   },
   {
-    "type": "string",
-    "named": false,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "escape_sequence",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "string_value",
     "named": true,
     "fields": {},
@@ -1000,7 +1237,28 @@
   {
     "type": "translated",
     "named": true,
-    "fields": {}
+    "fields": {
+      "context": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "quoted",
+            "named": true
+          }
+        ]
+      },
+      "string": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "quoted",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "type_literal",
@@ -1058,7 +1316,18 @@
   {
     "type": "type_name_full",
     "named": true,
-    "fields": {},
+    "fields": {
+      "namespace": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": false,
       "required": true,
@@ -1088,20 +1357,37 @@
   {
     "type": "using",
     "named": true,
-    "fields": {}
+    "fields": {
+      "namespace": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "ident",
+            "named": true
+          }
+        ]
+      },
+      "version": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "number",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "value",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
-      "required": false,
+      "multiple": false,
+      "required": true,
       "types": [
-        {
-          "type": "escape_sequence",
-          "named": true
-        },
         {
           "type": "flags",
           "named": true
@@ -1111,20 +1397,11 @@
           "named": true
         },
         {
-          "type": "string",
-          "named": true
-        },
-        {
           "type": "translated",
           "named": true
         }
       ]
     }
-  },
-  {
-    "type": "version",
-    "named": false,
-    "fields": {}
   },
   {
     "type": "\"",
@@ -1243,10 +1520,6 @@
     "named": false
   },
   {
-    "type": "detail",
-    "named": false
-  },
-  {
     "type": "disabled",
     "named": false
   },
@@ -1255,31 +1528,11 @@
     "named": true
   },
   {
-    "type": "first",
-    "named": false
-  },
-  {
-    "type": "handler",
-    "named": false
-  },
-  {
-    "type": "id",
-    "named": false
-  },
-  {
-    "type": "ident",
-    "named": false
-  },
-  {
     "type": "ident",
     "named": true
   },
   {
     "type": "internal-child",
-    "named": false
-  },
-  {
-    "type": "internal_child",
     "named": false
   },
   {
@@ -1311,27 +1564,7 @@
     "named": false
   },
   {
-    "type": "name",
-    "named": false
-  },
-  {
-    "type": "namespace",
-    "named": false
-  },
-  {
-    "type": "object",
-    "named": false
-  },
-  {
     "type": "patterns",
-    "named": false
-  },
-  {
-    "type": "position",
-    "named": false
-  },
-  {
-    "type": "property",
     "named": false
   },
   {
@@ -1343,16 +1576,16 @@
     "named": false
   },
   {
-    "type": "rest",
-    "named": false
-  },
-  {
     "type": "section",
     "named": false
   },
   {
     "type": "setters",
     "named": false
+  },
+  {
+    "type": "string",
+    "named": true
   },
   {
     "type": "strings",

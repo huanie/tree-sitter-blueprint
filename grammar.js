@@ -1,7 +1,6 @@
 module.exports = grammar({
   extras: $ => [/\s|\\\r?\n/, $.comment],
   name: 'blueprint',
-  conflicts: $ => [[$.ext_response]],
   rules: {
     // begin Root
     source_file: $ =>
@@ -9,19 +8,19 @@ module.exports = grammar({
     using: $ =>
       seq(
         'using',
-        alias($.ident, 'namespace'),
-        alias($.number, 'version'),
+        field('namespace', $.ident),
+        field('version', $.number),
         ';',
       ),
     // end Root
     // begin Objects
     object: $ =>
-      seq($.type_name, optional(alias($.ident, 'id')), $.object_content),
+      seq($.type_name, optional(field('id', $.ident)), $.object_content),
     object_content: $ =>
       seq('{', repeat(choice($.signal, $.property, $.extension, $.child)), '}'),
     type_name: $ =>
       choice($.type_name_full, $.type_name_external, $.type_name_short),
-    type_name_full: $ => seq(alias($.ident, 'namespace'), '.', $.name),
+    type_name_full: $ => seq(field('namespace', $.ident), '.', $.name),
     name: $ => $.ident,
     type_name_external: $ => seq('$', $.name),
     type_name_short: $ => $.name,
@@ -30,12 +29,12 @@ module.exports = grammar({
     signal: $ =>
       seq(
         $.name,
-        optional(seq('::', alias($.ident, 'detail'))),
+        optional(seq('::', field('detail', $.ident))),
         '=>',
         '$',
-        alias($.ident, 'handler'),
+        field('handler', $.ident),
         '(',
-        optional(alias($.ident, 'object')),
+        optional(field('object', $.ident)),
         ')',
         repeat($.signal_flag),
         ';',
@@ -45,7 +44,7 @@ module.exports = grammar({
     child_annotation: $ =>
       seq('[', choice($.child_internal, $.child_extension, $.child_type), ']'),
     child_internal: $ =>
-      seq('internal-child', alias($.ident, 'internal_child')),
+      seq('internal-child', field('internal_child', $.ident)),
     child_type: $ => $.ident,
     // end Objects
     // begin Composite Templates
@@ -66,20 +65,20 @@ module.exports = grammar({
         $.number_literal,
         $.ident_literal,
       ),
-    quoted_literal: $ => alias($.quoted, 'value'),
-    number_literal: $ => seq(optional(/-|\+/), alias($.number, 'value')),
-    ident_literal: $ => prec(1, alias($.ident, 'ident')),
+    quoted_literal: $ => field('value', $.quoted),
+    number_literal: $ => seq(optional(/-|\+/), field('value', $.number)),
+    ident_literal: $ => prec(1, field('ident', $.ident)),
     type_literal: $ => seq('typeof', '<', $.type_name, '>'),
     flags: $ =>
-      seq(alias($.ident, 'first'), repeat(seq('|', alias($.ident, 'rest')))),
+      seq(field('first', $.ident), repeat(seq('|', field('rest', $.ident)))),
     translated: $ =>
       choice(
-        seq('_', '(', alias($.quoted, 'string'), ')'),
+        seq('_', '(', field('string', $.quoted), ')'),
         seq(
           'C_',
           '(',
-          alias($.quoted, 'context'),
-          alias($.quoted, 'string'),
+          field('context', $.quoted),
+          field('string', $.quoted),
           ')',
         ),
       ),
@@ -93,11 +92,11 @@ module.exports = grammar({
         choice($.closure_expression, $.literal, seq('(', $.expression, ')')),
         repeat(choice($.lookup_expression, $.cast_expression)),
       ),
-    lookup_expression: $ => seq('.', alias($.ident, 'property')),
+    lookup_expression: $ => seq('.', field('property', $.ident)),
     closure_expression: $ =>
       seq(
         '$',
-        alias($.ident, 'name'),
+        field('name', $.ident),
         '(',
         repeat(seq($.expression, ',')),
         ')',
@@ -108,7 +107,7 @@ module.exports = grammar({
     menu: $ =>
       seq(
         'menu',
-        optional(alias($.ident, 'id')),
+        optional(field('id', $.ident)),
         '{',
         repeat($.menu_child),
         '}',
@@ -123,7 +122,7 @@ module.exports = grammar({
     menu_section: $ =>
       seq(
         'section',
-        optional(alias($.ident, 'id')),
+        optional(field('id', $.ident)),
         '{',
         repeat(choice($.menu_child, $.menu_attribute)),
         '}',
@@ -131,13 +130,13 @@ module.exports = grammar({
     menu_submenu: $ =>
       seq(
         'submenu',
-        optional(alias($.ident, 'id')),
+        optional(field('id', $.ident)),
         '{',
         repeat(choice($.menu_child, $.menu_attribute)),
         '}',
       ),
     menu_item: $ => seq('item', '{', repeat($.menu_attribute), '}'),
-    menu_attribute: $ => seq(alias($.ident, 'name'), ':', $.string_value, ';'),
+    menu_attribute: $ => seq(field('name', $.ident), ':', $.string_value, ';'),
     menu_item_shorthand: $ =>
       seq(
         'item',
@@ -172,16 +171,16 @@ module.exports = grammar({
       ),
     ext_accessibility: $ =>
       seq('accessibility', '{', repeat($.ext_accessibility_prop), '}'),
-    ext_accessibility_prop: $ => seq(alias($.ident, 'name'), ':', $.value, ';'),
+    ext_accessibility_prop: $ => seq(field('name', $.ident), ':', $.value, ';'),
     ext_adw_breakpoint_condition: $ =>
-      seq('condition', '(', alias($.quoted, 'condition'), ')'),
+      seq('condition', '(', field('condition', $.quoted), ')'),
     ext_adw_breakpoint: $ =>
       seq('setters', '{', repeat($.ext_adw_breakpoint_setter), '}'),
     ext_adw_breakpoint_setter: $ =>
       seq(
-        alias($.ident, 'object'),
+        field('object', $.ident),
         '.',
-        alias($.ident, 'property'),
+        field('property', $.ident),
         ':',
         $.value,
         ';',
@@ -195,7 +194,7 @@ module.exports = grammar({
       ),
     ext_adw_message_dialog_response: $ =>
       seq(
-        alias($.ident, 'id'),
+        field('id', $.ident),
         ':',
         $.string_value,
         repeat($.ext_adw_message_dialog_flag),
@@ -205,7 +204,7 @@ module.exports = grammar({
     ext_combo_box_items: $ =>
       seq('items', '[', repeat(seq($.ext_combo_box_item, optional(','))), ']'),
     ext_combo_box_item: $ =>
-      seq(optional(seq(alias($.ident, 'id'), ':')), $.string_value),
+      seq(optional(seq(field('id', $.ident), ':')), $.string_value),
     ext_file_filter_mime_types: $ =>
       seq(
         'mime-types',
@@ -230,7 +229,7 @@ module.exports = grammar({
     ext_file_filter_item: $ => $.quoted,
     ext_layout: $ =>
       seq('layout', '{', repeat(seq($.ext_layout_prop, optional(','))), '}'),
-    ext_layout_prop: $ => seq(alias($.ident, 'name'), ':', $.value, ';'),
+    ext_layout_prop: $ => seq(field('name', $.ident), ':', $.value, ';'),
     ext_list_item_factory: $ => seq('template', $.type_name, $.object_content),
     ext_scale_marks: $ =>
       seq('marks', '[', repeat(seq($.ext_scale_mark, optional(','))), ']'),
@@ -239,11 +238,11 @@ module.exports = grammar({
         'mark',
         '(',
         optional(choice('-', '+')),
-        alias($.number, 'value'),
+        field('value', $.number),
         optional(
           seq(
             ',',
-            alias($.ident, 'position'),
+            field('position', $.ident),
             optional(seq(',', $.string_value)),
           ),
         ),
@@ -256,7 +255,7 @@ module.exports = grammar({
         repeat(seq($.ext_size_group_widget, optional(','))),
         ']',
       ),
-    ext_size_group_widget: $ => alias($.ident, 'id'),
+    ext_size_group_widget: $ => field('id', $.ident),
     ext_string_list_strings: $ =>
       seq(
         'strings',
@@ -267,14 +266,14 @@ module.exports = grammar({
     ext_string_list_item: $ => $.string_value,
     ext_styles: $ =>
       seq('styles', '[', repeat(seq($.ext_styles_class, optional(','))), ']'),
-    ext_styles_class: $ => alias($.quoted, 'name'),
+    ext_styles_class: $ => field('name', $.quoted),
     child_extension: $ => $.ext_response,
     ext_response: $ =>
       seq(
         'action',
         'response',
         '=',
-        optional(choice(alias($.ident, 'name'), alias($.number, 'id'))),
+        optional(choice(field('name', $.ident), field('id', $.number))),
         optional('default'),
       ),
     // end Extensions
