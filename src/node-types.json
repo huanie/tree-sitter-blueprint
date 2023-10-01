@@ -4,15 +4,20 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
-          "type": "expression",
+          "type": "binding_flag",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "binding_flag",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "cast_expression",
@@ -1500,6 +1505,10 @@
     "named": false
   },
   {
+    "type": "bidirectional",
+    "named": false
+  },
+  {
     "type": "bind",
     "named": false
   },
@@ -1536,6 +1545,10 @@
     "named": false
   },
   {
+    "type": "inverted",
+    "named": false
+  },
+  {
     "type": "item",
     "named": false
   },
@@ -1561,6 +1574,10 @@
   },
   {
     "type": "mime-types",
+    "named": false
+  },
+  {
+    "type": "no-sync-create",
     "named": false
   },
   {

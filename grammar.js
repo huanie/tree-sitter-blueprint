@@ -87,7 +87,8 @@ module.exports = grammar({
           ')',
         ),
       ),
-    binding: $ => seq('bind', $.expression),
+    binding: $ => seq('bind', repeat($.binding_flag)),
+    binding_flag: $ => choice('bidirectional', 'inverted', 'no-sync-create'),
     object_value: $ => $.object,
     string_value: $ => choice($.translated, $.quoted_literal),
     // end Values

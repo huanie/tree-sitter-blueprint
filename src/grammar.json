@@ -653,8 +653,28 @@
           "value": "bind"
         },
         {
-          "type": "SYMBOL",
-          "name": "expression"
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "binding_flag"
+          }
+        }
+      ]
+    },
+    "binding_flag": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "bidirectional"
+        },
+        {
+          "type": "STRING",
+          "value": "inverted"
+        },
+        {
+          "type": "STRING",
+          "value": "no-sync-create"
         }
       ]
     },
