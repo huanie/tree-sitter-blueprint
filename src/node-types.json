@@ -5,10 +5,14 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "binding_flag",
+          "named": true
+        },
+        {
+          "type": "expression",
           "named": true
         }
       ]

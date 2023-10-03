@@ -653,6 +653,10 @@
           "value": "bind"
         },
         {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
           "type": "REPEAT",
           "content": {
             "type": "SYMBOL",
